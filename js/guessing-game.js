@@ -91,16 +91,18 @@ function startGame() {
         const num = parseInt(inputField.value);
         inputField.value = '';
         textField.innerHTML = gameInProgress.playersGuessSubmission(num);
-        previousGuessesNodeList(num);
         if (textField.innerHTML === 'You Lose.') disableElements();
-        else if (textField.innerHTML === 'You Win!') disableElements();
+        else if (textField.innerHTML === 'You Win!') return disableElements();
+        previousGuessesNodeList(num);
     } else textField.innerHTML = 'Enter a valid number between 1 - 100';
 }
 
 function previousGuessesNodeList(num) {
-    const indx = gameInProgress.pastGuesses.length - 1;
+    if (textField.innerHTML !== 'You have already guessed that number.') {
+        const indx = gameInProgress.pastGuesses.length - 1;
 
-    previousGuesses[indx].innerHTML = num;
+        previousGuesses[indx].innerHTML = num;
+    }
 }
 
 function hintProvider() {
